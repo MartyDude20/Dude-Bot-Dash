@@ -65,7 +65,7 @@ async function handlePlayCommand(
   textChannel: TextChannel,
   io: SocketServer
 ) {
-  const query = interaction.options.get('query')?.value as string;
+  const query = interaction.options.getString('query', true);
   
   if (!member.voice.channel) {
     await interaction.reply({ content: '❌ You need to be in a voice channel to play music!', ephemeral: true });
@@ -346,7 +346,7 @@ async function handleVolumeCommand(
   guildId: string,
   io: SocketServer
 ) {
-  const volume = interaction.options.get('level')?.value as number;
+  const volume = interaction.options.getNumber('level', true);
   
   const success = musicManager.setVolume(guildId, volume);
   if (success) {

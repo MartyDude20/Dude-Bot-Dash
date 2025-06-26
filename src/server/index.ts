@@ -9,6 +9,7 @@ import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+
 import { logger } from './utils/logger.js';
 import { MusicManager } from './music/MusicManager.js';
 import { setupCommands } from './commands/index.js';
@@ -121,7 +122,7 @@ class DiscordMusicBot {
         return {
           id: guild.id,
           name: guild.name,
-          icon: guild.iconURL(),
+          icon: guild.iconURL() ?? undefined,
           memberCount: guild.memberCount,
           isConnected: !!connection,
           voiceChannel: connection ? {
@@ -276,7 +277,7 @@ class DiscordMusicBot {
       return {
         id: guild.id,
         name: guild.name,
-        icon: guild.iconURL(),
+        icon: guild.iconURL() ?? undefined,
         memberCount: guild.memberCount,
         isConnected: !!connection,
         voiceChannel: connection ? {

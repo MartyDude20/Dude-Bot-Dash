@@ -1,4 +1,4 @@
-import { Client, Guild, VoiceChannel, TextChannel } from 'discord.js';
+import { Client, VoiceChannel, TextChannel } from 'discord.js';
 import { 
   joinVoiceChannel, 
   createAudioPlayer, 
@@ -25,7 +25,8 @@ export class MusicManager {
   private client: Client;
   private connections: Map<string, GuildConnection> = new Map();
   private queues: Map<string, Queue> = new Map();
-  private spotify?: SpotifyWebApi;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private spotify?: any;
 
   constructor(client: Client) {
     this.client = client;
@@ -40,11 +41,13 @@ export class MusicManager {
       });
 
       this.spotify.clientCredentialsGrant().then(
-        (data) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (data: any) => {
           this.spotify!.setAccessToken(data.body['access_token']);
           logger.info('Spotify API initialized successfully');
         },
-        (err) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (err: any) => {
           logger.error('Spotify API initialization failed:', err);
         }
       );
